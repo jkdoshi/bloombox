@@ -1,0 +1,4 @@
+#summary how this project will impact business application development
+
+=Vision=
+Our vision for this project is to provide a general-purpose business application container with most of the commonly used infrastructure already in place. The application developer creates a comprehensive library of configuration files and code that define their application. And the application configurator overrides some of this configuration (and possibly code) that customizes the application to their client's needs.
