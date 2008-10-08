@@ -44,4 +44,4 @@ Next, imagine we want to provide a screen to the student that allows them to enr
   </form>
 </screen>
 }}}
-The above XML gets translated by the container (either at run-time or build-time) to XHTML.
+The above XML gets translated by the container (either at run-time or build-time) to XHTML. Certain attributes above a not literal values, but scripting language expressions. These are evaluated at runtime.
