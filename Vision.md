@@ -1,0 +1,45 @@
+# Vision #
+Our vision for this project is to provide a general-purpose business application container with most of the commonly used infrastructure already in place. The application developer creates a comprehensive library of configuration files and code that define their application. And the application configurator overrides some of this configuration (and possibly code) that customizes the application to their client's needs.
+
+# Example #
+Let's take a basic example to illustrate how it all works.
+
+Let's say an application developer wants to develop an application for student course enrollment in a university. The main business entities are:
+  * student
+  * course
+  * instructor
+Also, there is a many-to-many relationship between students and courses (a student can be enrolled in many  course and a course can have many students enrolled in it), and there is a one-to-many relationship between courses and instructors (a course can be tought by only one instructor, while an instructor can teach many courses)
+```
++-------+              +------+           +----------+
+|student|many<---->many|course|many--->one|instructor|
++-------+              +------+           +----------+
+```
+We define the entities using XML similar to this (many important details are skipped below, as we want to focus on core matters):
+```
+<entity name="Student">
+  <id/>
+  <property name="firstName" length="50"/>
+  <property name="lastName" length="50"/>
+  <set name="courses" type="Course"/>
+</entity>
+<entity name="Course">
+  <id/>
+  <property name="name" length="50"/>
+  <set name="students" type="Student"/>
+</entity>
+<entity name="Instructor">
+  <id/>
+  <property name="firstName" length="50"/>
+  <property name="lastName" length="50"/>
+  <set name="courses" type="Course"/>
+</entity>
+```
+Next, imagine we want to provide a screen to the student that allows them to enroll into a course. The screen might be defined as follows:
+```
+<screen>
+  <form id="frm" label="messages.forms.addcourse.label(student.name)">
+    <dropdown id="course" label="messages.forms.addcourse.course" addTo="student.courses" choices="Course.find()"/>
+  </form>
+</screen>
+```
+The above XML gets translated by the container (either at run-time or build-time) to XHTML. Certain attributes above a not literal values, but scripting language expressions. These are evaluated at runtime.
